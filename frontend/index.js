@@ -1,8 +1,13 @@
 const newCarrito = document.getElementById('newCarrito')
 
+
+
+
 newCarrito.addEventListener('click',()=>{
+
   try {
-    fetch('http://localhost:8080/carrito',{
+    fetch(`${HOST}/carrito`,{
+      // fetch('https://herrera.glitch.me/carrito',{
       method : 'POST',
       body : JSON.stringify({
         isAdmin : false,

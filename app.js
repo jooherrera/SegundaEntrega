@@ -6,7 +6,7 @@ import cors from 'cors'
 
 import { router } from './src/routes/router.js'
 
-
+const PORT = process.env.PORT || 8080
 
 const app = express()
 
@@ -23,6 +23,6 @@ app.use(router)
 
 
 
-const server = app.listen(process.env.PORT,() => {console.log(`${emoji.get('computer')}Server ON port ${process.env.PORT}`)})
+const server = app.listen(PORT,() => {console.log(`${emoji.get('computer')}Server ON port ${PORT}`)})
 
 server.on('error',(error) => console.log(error))

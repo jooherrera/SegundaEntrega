@@ -81,10 +81,11 @@
       }
     </script> -->
 
-
+      <script src="./env.js"></script>
     <script>
 
 
+      
 
       const btnProd = document.getElementById('prodView')
       
@@ -159,7 +160,8 @@
         let isAdmin = checkAdmin.checked
         if(value === 0){
 
-          fetch('http://localhost:8080/productos')
+          // fetch('http://localhost:8080/productos')
+          fetch(`${HOST}/productos`)
           .then(response => response.json())
           .then(data => {
       
@@ -171,19 +173,19 @@
               //BOTON AGREGAR AL CARRITO
               const addToCart = document.querySelectorAll('.addToCart')
 
-                  console.log(addToCart)
+                  // console.log(addToCart)
                   addToCart.forEach((element) =>{
-                  console.log(element)
+                  // console.log(element)
                       element.addEventListener('click',async()=>{
 
                           try {
                             let id = parseInt(prompt("Ingrese el id del carrito para agregar el producto"), 10)
                            if(!id){ throw `Ingresar un numero`}
 
-                            const respuesta = await fetch(`http://localhost:8080/productos/${element.id}`)
+                            const respuesta = await fetch(`${HOST}/productos/${element.id}`)
                             const data = await respuesta.json()
                             console.log(data)
-                           const respuestaAdd = await  fetch(`http://localhost:8080/carrito/${id}/productos`,{
+                           const respuestaAdd = await  fetch(`${HOST}/carrito/${id}/productos`,{
                                 method : 'POST',
                                 body : JSON.stringify({
                                   id: element.id,
@@ -233,7 +235,7 @@
             //Boton DE BORRAR
             deleteBtn.forEach((element) =>{
                element.addEventListener('click',()=>{
-                fetch(`http://localhost:8080/productos/${element.id}`,{
+                fetch(`${HOST}/productos/${element.id}`,{
                   method : 'DELETE',
                   body : JSON.stringify({isAdmin : true}),
                   headers: {
@@ -284,7 +286,7 @@
 
 
         }else{
-        fetch(`http://localhost:8080/productos/${value}`)
+        fetch(`${HOST}/productos/${value}`)
           .then(response => response.json())
           .then(data => {
             if(!data.res){
@@ -304,10 +306,10 @@ console.log(element)
           let id = parseInt(prompt("Ingrese el id del carrito para agregar el producto"), 10)
          if(!id){ throw `Ingresar un numero`}
 
-          const respuesta = await fetch(`http://localhost:8080/productos/${element.id}`)
+          const respuesta = await fetch(`${HOST}/productos/${element.id}`)
           const data = await respuesta.json()
           console.log(data)
-         const respuestaAdd = await  fetch(`http://localhost:8080/carrito/${id}/productos`,{
+         const respuestaAdd = await  fetch(`${HOST}/carrito/${id}/productos`,{
               method : 'POST',
               body : JSON.stringify({
                 id: element.id,
@@ -369,7 +371,7 @@ console.log(element)
             deleteBtn.forEach((element) =>{
                element.addEventListener('click',()=>{
                 console.log(element.id)
-                fetch(`http://localhost:8080/productos/${element.id}`,{
+                fetch(`${HOST}/productos/${element.id}`,{
 
                   method : 'DELETE',
                   body : JSON.stringify({isAdmin : true}),

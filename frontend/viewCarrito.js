@@ -8,7 +8,7 @@ viewCarrito.addEventListener('click',async()=>{
     let id = parseInt(prompt("Ingrese el id del carrito a buscar"), 10)
     if(!id){ throw `Ingresar un numero`}
     
-    const respuesta = await fetch(`http://localhost:8080/carrito/${id}/productos`,{
+    const respuesta = await fetch(`${HOST}/carrito/${id}/productos`,{
       method : 'GET',
       headers:{
         'Content-Type': 'application/json'
@@ -21,7 +21,7 @@ viewCarrito.addEventListener('click',async()=>{
   
   
     if(!datas.producto){
-      document.getElementById('cards').innerHTML = `<h2> Carrito Vacio </h2>`
+      document.getElementById('cards').innerHTML = `<h2 class="text-center"> Carrito Vacio </h2>`
     }else{
       let data = datas.producto
       let html = Handlebars.templates['cardsCart']({data})
@@ -33,7 +33,7 @@ viewCarrito.addEventListener('click',async()=>{
     deleteBtn.forEach((btn) =>{
       btn.addEventListener('click',async ()=>{
 
-          const respuestaD = await fetch(`http://localhost:8080/carrito/${id}/productos/${btn.id}`,{
+          const respuestaD = await fetch(`${HOST}/carrito/${id}/productos/${btn.id}`,{
             method : 'DELETE',
 
             headers:{

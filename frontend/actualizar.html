@@ -31,7 +31,7 @@
 
 
 
-
+    <script src="./env.js"></script>
     <script>
 
 
@@ -41,7 +41,7 @@
       var queryDict = {}
       location.search.substr(1).split("&").forEach(function(item) {queryDict[item.split("=")[0]] = item.split("=")[1]})
       // console.log(window.location.search.substr(1))
-      console.log(queryDict)
+    
       if(queryDict.isAdmin){
       let html = Handlebars.templates['nuevoProducto']()
       document.getElementById('formulario').innerHTML = html
@@ -65,7 +65,7 @@
 
         try {
           console.log(queryDict.identificador)
-          fetch(`http://localhost:8080/productos/${queryDict.identificador}`,{
+          fetch(`${HOST}/productos/${queryDict.identificador}`,{
           method : 'PUT',
           body : JSON.stringify({
             isAdmin : true,

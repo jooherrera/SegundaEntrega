@@ -7,7 +7,7 @@ deleteCarrito.addEventListener('click', async ()=>{
     let id = parseInt(prompt("Ingrese el id del carrito a eliminar"), 10)
     if(!id){ throw `Ingresar un numero`}
    
-   const respuesta = await fetch(`http://localhost:8080/carrito/${id}`,{
+   const respuesta = await fetch(`${HOST}/carrito/${id}`,{
       method : 'DELETE',
       headers:{
               'Content-Type': 'application/json'
