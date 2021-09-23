@@ -79,12 +79,8 @@ carritoRouter.get('/:id/productos', async (req, res) => {
 carritoRouter.post('/:id/productos', fetchProduct , async (req,res) => {
   const { id } = req.params
   const { producto } = req.body
-  console.log("ID",id)
-  console.log("POD",producto)
   try {
     const respuesta = await Controller.saveCart(id,producto)
-
-    console.log("RESOYESTA",respuesta)
     if(!respuesta) { throw `Error`}
     res.status(200).json({ok : "ok"})
     // res.json(req.body)
