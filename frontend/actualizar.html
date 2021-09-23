@@ -55,27 +55,27 @@
 
       form.addEventListener('submit',(e) =>{
         e.preventDefault()
-        const title = document.getElementById('title').value
+    const title = document.getElementById('title').value
         const price = document.getElementById('price').value
         const pictureURL = document.getElementById('pictureURL').value
         const descripcion = document.getElementById('descripcion').value
         const codigo = document.getElementById('codigo').value
         const stock = document.getElementById('stock').value
         let fyh = new Date().toLocaleString()
-
         try {
           console.log(queryDict.identificador)
           fetch(`${HOST}/productos/${queryDict.identificador}`,{
           method : 'PUT',
           body : JSON.stringify({
-            isAdmin : true,
-            timestamp : fyh,
-            title : title,
-            descripcion : descripcion,
-            codigo: codigo,
+           
+            timestamp : new Date().toLocaleString(),
+            title : title.toLowerCase(),
+            description : descripcion,
+            code: codigo,
             pictureURL : pictureURL,
             price : price,
-            stock : stock
+            stock : stock,
+            isAdmin : true
           }),
           headers:{
             'Content-Type': 'application/json'

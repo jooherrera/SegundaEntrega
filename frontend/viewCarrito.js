@@ -5,7 +5,7 @@ const viewCarrito = document.getElementById('viewCarrito')
 viewCarrito.addEventListener('click',async()=>{
 
   try {
-    let id = parseInt(prompt("Ingrese el id del carrito a buscar"), 10)
+    let id = prompt("Ingrese el id del carrito a buscar")
     if(!id){ throw `Ingresar un numero`}
     
     const respuesta = await fetch(`${HOST}/carrito/${id}/productos`,{
@@ -16,14 +16,14 @@ viewCarrito.addEventListener('click',async()=>{
     })
 
     const datas = await respuesta.json()
-
+  
     if(respuesta.status === 404){ throw `No existe el carrito con el ID ingresado`}
   
   
-    if(!datas.producto){
+    if(!datas.products){
       document.getElementById('cards').innerHTML = `<h2 class="text-center"> Carrito Vacio </h2>`
     }else{
-      let data = datas.producto
+      let data = datas.products
       let html = Handlebars.templates['cardsCart']({data})
       document.getElementById('cards').innerHTML = html
       

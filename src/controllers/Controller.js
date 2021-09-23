@@ -1,69 +1,88 @@
-import   {DataBase, DBCarrito}   from '../models/model.js'
+import {ProductsModel} from '../models/product.model.js'
+import {CartModel} from '../models/carrito.model.js'
+import pkg from 'mongodb';
+const {ObjectId} = pkg;
 
  class Controller  {
   constructor(){
-    
-  }
-
+ 
+   
   
-  async delete(id){
-    try {
-      const producto = await DataBase.deleteById(id)
-      if (!producto) {throw `Error`}
-      return `Se actualizo exitosamente`
-    } catch (error) {
-      return null
-    }
   }
 
-
-  async actualizar(id, objeto){
+  async createProduct(producto){
     try {
-      const producto = await DataBase.actualizar(id,objeto)
-      if (!producto) {throw `Error`}
-      return `Se actualizo exitosamente`
+      const response = await ProductsModel.create(producto)
+      console.log(response)
     } catch (error) {
-      return null
-    }
-  }
-
-
-  async getAllProducts (){
-    let data;
-    try {
-
-      data = await DataBase.getAll()
-      if (!data) { throw `El archivo está vacio` }    
-      return data      
-    } catch (error) {
+      console.log(error)
       return null
     }
   }
 
   async getById(id){
+
     try {
-      const producto = await DataBase.getById(id)
-      if (!producto) {throw `No existe el ID`}
+
+      const producto = await ProductsModel.find({title : id})
+      // if (!producto) {throw `No existe el ID`}
+      console.log(producto)
       return producto
     } catch (error) {
       return null
     }
   }
 
+  async getAllProducts (){
+    let data;
+    try {
 
-  async save(producto){
-    try{ 
-    const respuesta = await DataBase.save(producto)
-      if(respuesta < 0 ) { throw `Error`}
-      return respuesta
+      data = await ProductsModel.find()
+      console.log(data)
+      // if (!data) { throw `El archivo está vacio` }    
+      return data      
     } catch (error) {
       return null
     }
   }
-//!----------------------------------------------------Carrito-------------------------------------------
-  async getCartById(id){
+  
+  async delete(id){
     try {
-      const products  = await DBCarrito.getById(id)
+      const producto = await ProductsModel.deleteOne({_id : id})
+      if (!producto) {throw `Error`}
+      return `Se actualizo exitosamente`
+    } catch (error) {
+      return null
+    }
+  }
+
+  async actualizar(id, objeto){
+    try {
+      const producto = await ProductsModel.updateOne({_id : id }, objeto)
+      if (!producto) {throw `Error`}
+      return `Se actualizo exitosamente`
+    } catch (error) {
+      return null
+    }
+  }
+ 
+//!----------------------------------------------------Carrito-------------------------------------------
+ 
+async newCart(){
+  try {
+    const respuesta = await CartModel.create({ timestamp : new Date().toLocaleString() })
+    if(!respuesta) {throw `error`}
+      return respuesta._id
+  } catch (error) {
+    return null
+  }
+}
+
+
+
+async getCartById(id){
+    try {
+      const products  = await CartModel.findOne({_id : id })
       if (!products) {throw `No existe el ID`}
       return products
     } catch (error) {
@@ -73,19 +92,10 @@ import   {DataBase, DBCarrito}   from '../models/model.js'
 
   async saveCart(id,producto){
     try {
-     const  respuesta = await DBCarrito.actualizar(id,producto)
-     if(respuesta < 0 ) { throw `Error`}
-      return respuesta
-    } catch (error) {
-      return null
-    }
-  }
-
-  async newCart(){
-    try {
-      const respuesta = await DBCarrito.save()
-      if(!respuesta) {throw `error`}
-        return respuesta
+      console.log("ID CARRITO" , id)
+     const  respuesta = await CartModel.updateOne({_id : id},{ $push : { products : producto }})
+    //  if(respuesta < 0 ) { throw `Error`}
+      return 1
     } catch (error) {
       return null
     }
@@ -93,7 +103,7 @@ import   {DataBase, DBCarrito}   from '../models/model.js'
 
   async deleteCartId(id){
     try {
-      const respuesta = await DBCarrito.deleteById(id)
+      const respuesta = await CartModel.deleteOne({_id : id})
       if(!respuesta) { throw `No se elimino nada.`}
       return respuesta
 
@@ -104,26 +114,15 @@ import   {DataBase, DBCarrito}   from '../models/model.js'
 
   async deleteProdByID(id,id_prod){
     try {
-     const  respuesta = await DBCarrito.deleteProdByID(id,id_prod)
+    const  respuesta = await CartModel.updateMany({_id : id},{ $pull :  { products : { _id : ObjectId(id_prod) }}},{multi : true})
      if(!respuesta ) { throw `Error`}
       return respuesta
     } catch (error) {
+      console.log(error)
       return null
     }
   }
   
-  async getAllProductsCart (){
-    let data;
-    try {
-
-      data = await DBCarrito.getAll()
-      if (!data) { throw `El archivo está vacio` }    
-      return data      
-    } catch (error) {
-      return null
-    }
-  }
-
  }
 
 

@@ -156,9 +156,10 @@
         // console.log(checkAdmin.checked)
 
         document.getElementById('cards').innerHTML = ""
-        let value = Number(inputSearch.value)
+        let value = inputSearch.value
+        
         let isAdmin = checkAdmin.checked
-        if(value === 0){
+        if(value === ""){
 
           // fetch('http://localhost:8080/productos')
           fetch(`${HOST}/productos`)
@@ -179,17 +180,17 @@
                       element.addEventListener('click',async()=>{
 
                           try {
-                            let id = parseInt(prompt("Ingrese el id del carrito para agregar el producto"), 10)
+                            let id = prompt("Ingrese el id del carrito para agregar el producto")
                            if(!id){ throw `Ingresar un numero`}
 
                             const respuesta = await fetch(`${HOST}/productos/${element.id}`)
                             const data = await respuesta.json()
-                            console.log(data)
+                            // console.log(data[0])
                            const respuestaAdd = await  fetch(`${HOST}/carrito/${id}/productos`,{
                                 method : 'POST',
                                 body : JSON.stringify({
                                   id: element.id,
-                                  producto : data
+                                  producto : data[0]
                                 }),
                                 headers:{
                                   'Content-Type': 'application/json'
@@ -286,13 +287,15 @@
 
 
         }else{
-        fetch(`${HOST}/productos/${value}`)
+        fetch(`${HOST}/productos/?id=${value.toLowerCase()}`)
           .then(response => response.json())
           .then(data => {
+            console.log(data)
             if(!data.res){
-              let html2 = Handlebars.templates['producto']({data})
+              // let html2 = Handlebars.templates['producto']({data})
+              // document.getElementById('cards').innerHTML = html2
+              let html2 = Handlebars.templates['cards']({data})
               document.getElementById('cards').innerHTML = html2
-
 
  //BOTON AGREGAR AL CARRITO
  const addToCart = document.querySelectorAll('.addToCart')

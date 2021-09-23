@@ -26,7 +26,7 @@ templates['cardsCart'] = template({"1":function(container,depth0,helpers,partial
     + "</h5>\n          <p class=\"card-text\">"
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"descripcion") : depth0), depth0))
     + "</p>\n        </div>\n        <div class=\"card-footer  w-auto \">\n        <div class=\" d-flex  m-auto\">\n          <button type=\"button\" class=\"btn btn-danger deleteBtn\" id="
-    + alias2(alias1((depth0 != null ? lookupProperty(depth0,"id") : depth0), depth0))
+    + alias2(alias1((depth0 != null ? lookupProperty(depth0,"_id") : depth0), depth0))
     + " > <small>Eliminar producto</small> </button>\n            <p class=\" text-center m-auto text-black-50\"><b>$"
     + alias2(alias1((depth0 != null ? lookupProperty(depth0,"price") : depth0), depth0))
     + "</b></p>\n        </div>\n         \n\n        </div>\n\n      </div>\n    </div>\n";

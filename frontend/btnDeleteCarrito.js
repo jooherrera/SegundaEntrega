@@ -4,7 +4,7 @@ deleteCarrito.addEventListener('click', async ()=>{
   // let id = prompt("Ingrese el id del carrito a eliminar")
 
   try {
-    let id = parseInt(prompt("Ingrese el id del carrito a eliminar"), 10)
+    let id = prompt("Ingrese el id del carrito a eliminar")
     if(!id){ throw `Ingresar un numero`}
    
    const respuesta = await fetch(`${HOST}/carrito/${id}`,{

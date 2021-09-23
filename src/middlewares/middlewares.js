@@ -1,5 +1,5 @@
 import {DataBase} from '../models/model.js'
-
+import {ProductsModel} from '../models/product.model.js'
 //! isAdmin
   const isAdmin = (req,res,next) => {
    
@@ -27,9 +27,9 @@ import {DataBase} from '../models/model.js'
   const fetchProduct = async (req,res,next) => {
     const { id } = req.body 
     try {
-      const respuesta = await DataBase.getById(id)
+      const respuesta = await ProductsModel.find({_id : id})
       if(!respuesta) { throw `Error`}
-       req.body.producto = respuesta
+       req.body.producto = respuesta[0]
       
       next()
     } catch (error) {

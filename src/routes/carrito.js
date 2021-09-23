@@ -14,6 +14,7 @@ carritoRouter.delete('/:id/productos/:id_prod',async (req, res) => {
     console.log(respuesta)
     res.status(200).json({ok : "ok"})
   } catch (error) {
+    console.log(error)
     res.status(401).json({error : "error"})
   }
 })
@@ -24,7 +25,6 @@ carritoRouter.delete('/:id/productos/:id_prod',async (req, res) => {
 
 carritoRouter.delete('/:id',async (req,res,next) => {
   const { id } = req.params
-  console.log(id)
   try {
     const respuesta = await Controller.deleteCartId(id)
     if(!respuesta) { throw `No existe el carrito.`}
@@ -79,8 +79,12 @@ carritoRouter.get('/:id/productos', async (req, res) => {
 carritoRouter.post('/:id/productos', fetchProduct , async (req,res) => {
   const { id } = req.params
   const { producto } = req.body
+  console.log("ID",id)
+  console.log("POD",producto)
   try {
     const respuesta = await Controller.saveCart(id,producto)
+
+    console.log("RESOYESTA",respuesta)
     if(!respuesta) { throw `Error`}
     res.status(200).json({ok : "ok"})
     // res.json(req.body)

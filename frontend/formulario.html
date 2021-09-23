@@ -66,14 +66,15 @@
           fetch(`${HOST}/productos`,{
           method : 'POST',
           body : JSON.stringify({
-            isAdmin : true,
-            timestamp : fyh,
-            title : title,
-            descripcion : descripcion,
-            codigo: codigo,
+           
+            timestamp : new Date().toLocaleString(),
+            title : title.toLowerCase(),
+            description : descripcion,
+            code: codigo,
             pictureURL : pictureURL,
             price : price,
-            stock : stock
+            stock : stock,
+            isAdmin : true
           }),
           headers:{
             'Content-Type': 'application/json'
