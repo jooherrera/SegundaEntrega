@@ -1,14 +1,9 @@
-import {ProductsModel} from '../models/product.model.js'
-import {CartModel} from '../models/carrito.model.js'
+import { ProductsModel, CartModel } from '../models/model.js';
 import pkg from 'mongodb';
 const {ObjectId} = pkg;
 
  class Controller  {
-  constructor(){
- 
-   
-  
-  }
+  constructor(){}
 
   async createProduct(producto){
     try {
@@ -21,12 +16,8 @@ const {ObjectId} = pkg;
   }
 
   async getById(id){
-
     try {
-
       const producto = await ProductsModel.find({title : id})
-      // if (!producto) {throw `No existe el ID`}
-      console.log(producto)
       return producto
     } catch (error) {
       return null
@@ -36,10 +27,7 @@ const {ObjectId} = pkg;
   async getAllProducts (){
     let data;
     try {
-
       data = await ProductsModel.find()
-      console.log(data)
-      // if (!data) { throw `El archivo está vacio` }    
       return data      
     } catch (error) {
       return null
@@ -78,8 +66,6 @@ async newCart(){
   }
 }
 
-
-
 async getCartById(id){
     try {
       const products  = await CartModel.findOne({_id : id })
@@ -94,7 +80,6 @@ async getCartById(id){
     try {
       console.log("ID CARRITO" , id)
      const  respuesta = await CartModel.updateOne({_id : id},{ $push : { products : producto }})
-    //  if(respuesta < 0 ) { throw `Error`}
       return 1
     } catch (error) {
       return null
@@ -106,7 +91,6 @@ async getCartById(id){
       const respuesta = await CartModel.deleteOne({_id : id})
       if(!respuesta) { throw `No se elimino nada.`}
       return respuesta
-
     } catch (error) {
       return null
     }
@@ -122,11 +106,6 @@ async getCartById(id){
       return null
     }
   }
-  
  }
-
-
-
-
 
 export default new Controller()

@@ -1,10 +1,4 @@
-import DataBase from './producto.js'
-import DBCarrito from './carrito.js'
+import {CartModel} from './carrito.model.js'
+import {ProductsModel} from './product.model.js'
 
-
-
-
-
-
-export {DataBase , DBCarrito}
-// export default mongoose
+export {CartModel , ProductsModel}

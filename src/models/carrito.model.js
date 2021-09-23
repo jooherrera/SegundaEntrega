@@ -1,7 +1,4 @@
 import mongoose from 'mongoose'
- import {SchemaProducts} from './product.model.js'
- import pkg from 'mongoose';
-const { Mixed } = pkg;
 
 const SchemaCart = mongoose.Schema({
   timestamp: {

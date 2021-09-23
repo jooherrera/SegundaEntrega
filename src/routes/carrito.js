@@ -2,8 +2,8 @@ import { Router } from "express";
 const carritoRouter = Router()
 
 import { Controller } from '../controllers/index.js'
-import { isAdmin , fetchProduct } from '../middlewares/middlewares.js'
-import carrito from "../models/carrito.js";
+import { fetchProduct } from '../middlewares/middlewares.js'
+
 
 //!Borrar producto por ID y por ID de carrito
 carritoRouter.delete('/:id/productos/:id_prod',async (req, res) => {
@@ -96,22 +96,6 @@ carritoRouter.post('/:id/productos', fetchProduct , async (req,res) => {
   }
 })
 
-//! Ver todos los carritos
-carritoRouter.get('/' ,async (req,res) =>{
-  try {
-    const data = await Controller.getAllProductsCart()
-    if (!data) { throw `El archivo está vacio` }
-    res.json(data)
-  } catch (error) {
-   
-    res.json({
-      error : -3 ,
-      descripcion : error
-     })
-  }
-  
- 
-} )
 
 
 export {carritoRouter}

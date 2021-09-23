@@ -1,9 +1,6 @@
-import {DataBase} from '../models/model.js'
-import {ProductsModel} from '../models/product.model.js'
+import {ProductsModel} from '../models/model.js'
 //! isAdmin
   const isAdmin = (req,res,next) => {
-   
-
     try {
       const { isAdmin } =  req.body
       if(isAdmin === true) {
@@ -13,14 +10,9 @@ import {ProductsModel} from '../models/product.model.js'
         throw `Unauthorized`
       }
     } catch (err) {
-      // console.log(err)
       res.status(401)
       next(err)
     }
-
-
-
-
   }
 
 //! existe el producto para agregar al carrito?
@@ -34,13 +26,8 @@ import {ProductsModel} from '../models/product.model.js'
       next()
     } catch (error) {
       res.status(404)
-      // .json({
-      //   error : "xxxx",
-      //   descripcion : `RUTA- ${req.originalUrl} - METODO ${req.method}  - NO AUTORIZADO `
-      // })
       next(error)
     }
-
   }
 
 
